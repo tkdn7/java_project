@@ -3,6 +3,6 @@
 
 public enum LoginResult {
     SUCCESS, // 로그인 성공
-    ID_NOT_FOUND, // ID 없음, 혹은 틀림
-    WRONG_PASSWORD // 비밀번호 틀림
+    ID_NOT_FOUND, // 입력한 ID에 해당하는 회원이 존재하지 않음 (※ "ID가 틀렸다"는 곧 "없다"와 같음 — "혹은 틀림"은 군더더기)
+    WRONG_PASSWORD // ID는 있으나 비밀번호 불일치
 }

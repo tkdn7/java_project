@@ -62,14 +62,18 @@ public class Main {
         LoginResult result = manager.login(id, password);
         switch (result) {
             case SUCCESS:
+                // [검토 TODO] 메뉴 분기로 확장하려면 여기서 로그인 한 User 객체가 필요함.
+                //   현재는 id 문자열밖에 없어서 Customer/Admin 판별 불가.
+                //   UserManager에 사용자 조회 수단(public getUser 등)을 마련해야 함.
                 System.out.println("로그인 성공 -> id: " + id);
                 break;
             case ID_NOT_FOUND:
-                System.out.println("로그인 실패 -> 틀렸거나 존재하지 않는 ID: " + id);
+                System.out.println("로그인 실패 -> 존재하지 않는 ID: " + id);
                 break;
             case WRONG_PASSWORD:
                 System.out.println("로그인 실패 -> 비밀번호가 틀렸습니다.");
                 break;
+            // [검토 TODO] LoginResult에 라벨이 추가될 때 누락 방지용 default 케이스를 둘지 결정
         }
     }
 }

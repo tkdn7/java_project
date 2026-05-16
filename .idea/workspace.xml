@@ -4,17 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="123145c1-037f-4d86-9177-fa47df3e6e26" name="변경" comment="두 번째 프롬프트 (5/16, 8:36pm)">
-      <change afterPath="$PROJECT_DIR$/src/LoginResult.java" afterDir="false" />
+    <list default="true" id="123145c1-037f-4d86-9177-fa47df3e6e26" name="변경" comment="본인 수정본2 (5/16, 9:46pm)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/과제/Delivery.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/과제/Delivery.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/과제/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/과제/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/과제/UserManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/과제/UserManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Delivery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Delivery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DeliveryStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DeliveryStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LoginResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LoginResult.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/UserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users.txt" beforeDir="false" afterPath="$PROJECT_DIR$/users.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,7 +145,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778931390625</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="본인 수정본2 (5/16, 9:46pm)">
+      <option name="closed" value="true" />
+      <created>1778935599851</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1778935599851</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -203,6 +205,7 @@
     <MESSAGE value="본인 수정본 (5/16, 8:06pm)" />
     <MESSAGE value="두 번째 프롬프트 (5/16, 8:25pm)" />
     <MESSAGE value="두 번째 프롬프트 (5/16, 8:36pm)" />
-    <option name="LAST_COMMIT_MESSAGE" value="두 번째 프롬프트 (5/16, 8:36pm)" />
+    <MESSAGE value="본인 수정본2 (5/16, 9:46pm)" />
+    <option name="LAST_COMMIT_MESSAGE" value="본인 수정본2 (5/16, 9:46pm)" />
   </component>
 </project>

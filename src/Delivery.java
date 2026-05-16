@@ -15,6 +15,7 @@ public abstract class Delivery {
     protected LocalDateTime createdAt;
 
     public Delivery() {
+
     }
 
     public Delivery(String trackingNumber, Customer sender, Parcel parcel,

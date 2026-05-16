@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 // [역할] UserManager / UserFileRepository 동작 확인용 테스트 진입점
 //
 // ===== 사용 방법 =====
@@ -6,13 +8,11 @@
 // 3) src 폴더의 users.txt 를 열어 형식 확인 (CUSTOMER,c1,1234,...)
 //
 // ===== 작업 가이드 =====
-// TODO [★☆☆ 1순위] 위 시나리오대로 두 번 실행해서 결과 확인
-// TODO [★☆☆ 2순위] users.txt 파일을 메모장으로 열어 직접 한 줄 추가/수정해보기
-//                    → 다시 실행했을 때 반영되는지 확인
 // TODO [★★☆ 3순위] 키보드 입력(Scanner)으로 ID/비밀번호 받아 로그인하는 콘솔 UI로 확장
 // TODO [★★★ 4순위] 로그인 성공 후 Customer / Admin에 따라 다른 메뉴를 보여주는 분기 추가
 public class Main {
     public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
         UserManager manager = new UserManager();
 
         // 1. 시작 시 회원 목록 출력
@@ -59,11 +59,17 @@ public class Main {
 
     // 로그인 시도 결과 출력
     private static void tryLogin(UserManager manager, String id, String password) {
-        User result = manager.login(id, password);
-        if (result != null) {
-            System.out.println("로그인 성공 → " + result.getName() + " (" + result.getId() + ")");
-        } else {
-            System.out.println("로그인 실패 → id=" + id + ", password=" + password);
+        LoginResult result = manager.login(id, password);
+        switch (result) {
+            case SUCCESS:
+                System.out.println("로그인 성공 -> id: " + id);
+                break;
+            case ID_NOT_FOUND:
+                System.out.println("로그인 실패 -> 틀렸거나 존재하지 않는 ID: " + id);
+                break;
+            case WRONG_PASSWORD:
+                System.out.println("로그인 실패 -> 비밀번호가 틀렸습니다.");
+                break;
         }
     }
 }

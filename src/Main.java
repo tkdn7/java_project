@@ -2,11 +2,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
-// [역할] 택배 운송 시스템 콘솔 프로그램의 진입점
-// 시작 메뉴 → 로그인 후 사용자 종류에 따라 Customer/Admin 메뉴 분기
-//
-// 회원 정보는 users.txt에 영속 저장(UserFileRepository) 되지만,
-// 배송 정보는 메모리에만 유지되어 프로그램 종료 시 사라짐 (요구사항)
+// [역할] 콘솔 진입점. Scanner로 사용자 입력을 받아 시작 메뉴 -> 로그인 -> Customer/Admin 메뉴 분기 진행
+// 회원 정보는 users.txt에 영속 저장되고, 배송 정보는 메모리에서만 관리됨 (종료시 사라짐)
 public class Main {
     private static final Scanner in = new Scanner(System.in);
     private static final UserManager userManager = new UserManager();
@@ -99,7 +96,7 @@ public class Main {
             case SUCCESS:
                 User user = userManager.getUserById(id);
                 System.out.println("로그인 성공: " + user.getName() + "님 환영합니다.");
-                // instanceof로 분기해서 서로 다른 메뉴를 띄움
+                // instanceof로 회원 타입에 따라 다른 메뉴로 분기
                 if (user instanceof Admin) {
                     adminMenu((Admin) user);
                 } else if (user instanceof Customer) {
@@ -189,7 +186,7 @@ public class Main {
             double length = Double.parseDouble(in.nextLine().trim());
             System.out.print("높이(cm): ");
             double height = Double.parseDouble(in.nextLine().trim());
-            System.out.println("배송 종류 선택 [1: 일반배송 / 2: 긴급배송]: ");
+            System.out.print("배송 종류 [1: 일반배송 / 2: 긴급배송]: ");
             String deliveryType = in.nextLine().trim();
 
             Parcel parcel = new Parcel(contents, weight, distance,
@@ -221,33 +218,27 @@ public class Main {
     }
 
     private static void customerViewDelivery(Customer customer) {
-        System.out.print("운송장 번호: ");
-        String trackingNumber = in.nextLine().trim();
-        Delivery delivery = customer.viewWaybill(deliveryManager, trackingNumber);
+        Delivery delivery = customer.viewWaybill(deliveryManager, promptTrackingNumber());
         if (delivery == null) {
-            System.out.println("해당 운송장 번호를 찾을 수 없습니다.");
+            printTrackingNotFound();
             return;
         }
         printDelivery(delivery);
     }
 
     private static void customerCheckStatus(Customer customer) {
-        System.out.print("운송장 번호: ");
-        String trackingNumber = in.nextLine().trim();
-        DeliveryStatus status = customer.checkStatus(deliveryManager, trackingNumber);
+        DeliveryStatus status = customer.checkStatus(deliveryManager, promptTrackingNumber());
         if (status == null) {
-            System.out.println("해당 운송장 번호를 찾을 수 없습니다.");
+            printTrackingNotFound();
             return;
         }
         System.out.println("현재 배송 상태: " + status.getLabel());
     }
 
     private static void customerShowFee(Customer customer) {
-        System.out.print("운송장 번호: ");
-        String trackingNumber = in.nextLine().trim();
-        Delivery delivery = customer.viewWaybill(deliveryManager, trackingNumber);
+        Delivery delivery = customer.viewWaybill(deliveryManager, promptTrackingNumber());
         if (delivery == null) {
-            System.out.println("해당 운송장 번호를 찾을 수 없습니다.");
+            printTrackingNotFound();
             return;
         }
         String type = (delivery instanceof ExpressDelivery) ? "긴급배송" : "일반배송";
@@ -301,8 +292,7 @@ public class Main {
     }
 
     private static void adminChangeStatus(Admin admin) {
-        System.out.print("운송장 번호: ");
-        String trackingNumber = in.nextLine().trim();
+        String trackingNumber = promptTrackingNumber();
         System.out.println("변경할 상태 선택:");
         DeliveryStatus[] statuses = DeliveryStatus.values();
         for (int i = 0; i < statuses.length; i++) {
@@ -325,17 +315,26 @@ public class Main {
     }
 
     private static void adminDeleteWaybill(Admin admin) {
-        System.out.print("삭제할 운송장 번호: ");
-        String trackingNumber = in.nextLine().trim();
-        boolean removed = admin.deleteWaybill(deliveryManager, trackingNumber);
-        if (removed) {
+        String trackingNumber = promptTrackingNumber();
+        if (admin.deleteWaybill(deliveryManager, trackingNumber)) {
             System.out.println("운송장 삭제 완료: " + trackingNumber);
         } else {
-            System.out.println("해당 운송장 번호를 찾을 수 없습니다.");
+            printTrackingNotFound();
         }
     }
 
-    // ================= 공용 출력 헬퍼 =================
+    // ================= 공용 헬퍼 =================
+
+    // 운송장 번호 입력받는 부분이 5곳에서 반복되어 분리
+    private static String promptTrackingNumber() {
+        System.out.print("운송장 번호: ");
+        return in.nextLine().trim();
+    }
+
+    // 운송장 없을 때 안내 메시지도 여러 곳에서 동일해서 분리
+    private static void printTrackingNotFound() {
+        System.out.println("해당 운송장 번호를 찾을 수 없습니다.");
+    }
 
     private static void printDelivery(Delivery delivery) {
         String type = (delivery instanceof ExpressDelivery) ? "긴급" : "일반";

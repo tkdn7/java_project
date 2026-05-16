@@ -1,7 +1,7 @@
-// [구현 순서 1순위] 다른 클래스에 의존하지 않는 데이터 클래스. 가장 먼저 확정.
-// TODO 3) (선택) 부피(가로/세로/높이) 필드 추가 — 부피무게 적용한 배송비 계산을 도입할 경우
+// [역할] 택배 물품 정보 (내용물, 무게, 거리, 송수신자, 부피)를 담는 데이터 클래스
+// 배송비 계산에 필요한 값들을 보관, 음수 입력은 setter에서 막음
 public class Parcel {
-    // 기본 정보 멤버 변수
+    // 기본 정보
     private String contents;
     private double weight;
     private double distance;
@@ -9,7 +9,7 @@ public class Parcel {
     private String senderAddress;
     private String receiverName;
     private String receiverAddress;
-    // 부피, 무게 적용하여 계산을 위한 멤버 변수
+    // 부피무게 계산용
     private double width;
     private double length;
     private double height;
@@ -29,6 +29,13 @@ public class Parcel {
         this.receiverAddress = receiverAddress;
     }
 
+    // 무게/거리/가로/세로/높이 모두 음수가 들어오면 동일한 메시지로 막는 공통 검증
+    private static void requirePositive(double value, String fieldName) {
+        if (value <= 0) {
+            throw new IllegalArgumentException(fieldName + "는 0보다 작을 수 없습니다. " + fieldName + ": " + value);
+        }
+    }
+
     public String getContents() {
         return contents;
     }
@@ -42,9 +49,7 @@ public class Parcel {
     }
 
     public void setWeight(double weight) {
-        if (weight <= 0) { // 무게가 음수일 수 없음 예외 처리
-            throw new IllegalArgumentException("무게는 0보다 작을 수 없습니다. 무게: " + weight);
-        }
+        requirePositive(weight, "무게");
         this.weight = weight;
     }
 
@@ -53,9 +58,7 @@ public class Parcel {
     }
 
     public void setDistance(double distance) {
-        if (distance <= 0) { // 거리가 음수일 수 없음 예외 처리
-            throw new IllegalArgumentException("거리는 0보다 작을 수 없습니다. 거리: " + distance);
-        }
+        requirePositive(distance, "거리");
         this.distance = distance;
     }
 
@@ -91,46 +94,48 @@ public class Parcel {
         this.receiverAddress = receiverAddress;
     }
 
-    public double getWidth() { return width; }
+    public double getWidth() {
+        return width;
+    }
 
     public void setWidth(double width) {
-        if (width <= 0) { // 가로 길이가 음수일 수 없음 예외 처리
-            throw new IllegalArgumentException("가로 길이는 0보다 작을 수 없습니다. 가로: " + width);
-        }
+        requirePositive(width, "가로");
         this.width = width;
     }
 
-    public double getLength() { return length; }
+    public double getLength() {
+        return length;
+    }
 
     public void setLength(double length) {
-        if (length <= 0) { // 가로 길이가 음수일 수 없음 예외 처리
-            throw new IllegalArgumentException("세로 길이는 0보다 작을 수 없습니다. 세로: " + length);
-        }
+        requirePositive(length, "세로");
         this.length = length;
     }
 
-    public double getHeight() { return height; }
+    public double getHeight() {
+        return height;
+    }
 
     public void setHeight(double height) {
-        if (height <= 0) { // 가로 길이가 음수일 수 없음 예외 처리
-            throw new IllegalArgumentException("높이는 0보다 작을 수 없습니다. 높이: " + height);
-        }
+        requirePositive(height, "높이");
         this.height = height;
     }
 
-    public double getVolume() { // 부피 계산
+    // 부피 계산
+    public double getVolume() {
         return width * length * height;
     }
 
+    // 부피무게 = (가로*세로*높이) / 5000 — 택배사 표준 공식
     public double getVolumeWeight() {
         return (width * length * height) / 5000.0;
     }
 
     @Override
     public String toString() {
-        return String.format (
+        return String.format(
             "[내용물: %s, 무게: %.1fkg, 거리: %.1fkm]\n" +
-            "   발송인: %s (%s)\n" + // 이름, 주소
+            "   발송인: %s (%s)\n" +
             "   수취인: %s (%s)",
             contents, weight, distance,
             senderName, senderAddress,

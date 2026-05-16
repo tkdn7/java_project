@@ -1,5 +1,4 @@
-// [구현 순서 1순위 - 완료] 다른 클래스가 모두 참조하는 enum이므로 가장 먼저 확정.
-
+// [역할] 배송 상태 7단계를 표현하는 열거형. 화면에 보여줄 라벨을 함께 보관
 public enum DeliveryStatus {
     READY("상품준비"),
     PICKUP_STARTED("집화출발"),

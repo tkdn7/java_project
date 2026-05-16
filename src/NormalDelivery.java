@@ -1,5 +1,6 @@
 import java.time.LocalDateTime;
 
+// [역할] 일반배송 - 할증 없이 공통 공식 그대로 적용
 public class NormalDelivery extends Delivery {
     private static final int BASE_FEE = 3000;
     private static final int WEIGHT_RATE = 500;     // kg당 추가 요금
@@ -16,7 +17,6 @@ public class NormalDelivery extends Delivery {
 
     @Override
     public int calculateFee() {
-        // 부모의 공통 계산식 그대로 사용 (일반배송은 할증 없음)
         return calculateBaseFee(BASE_FEE, WEIGHT_RATE, DISTANCE_RATE);
     }
 

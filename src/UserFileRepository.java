@@ -11,15 +11,6 @@ import java.util.List;
 // [파일 형식] 한 줄에 한 명, 쉼표로 필드 구분
 //   Customer: CUSTOMER,id,password,name,phone,address
 //   Admin   : ADMIN,id,password,name,phone,department
-//
-// ===== 작업 순서 가이드 (쉬운 것부터) =====
-// TODO [★☆☆ 1순위] UserManager로 회원을 한두 명 추가한 뒤
-//                    생성된 users.txt 파일을 직접 열어 형식이 어떤지 눈으로 확인
-// TODO [★☆☆ 2순위] 파일이 비어있거나 처음 실행할 때 정상 동작하는지 확인 (예외 안 터지는지)
-// TODO [★★☆ 3순위] 잘못된 줄을 만났을 때(필드 수 부족 등) 어떻게 처리할지 정책 결정
-//                    — 지금은 예외가 터져 프로그램이 멈춤. 그 줄만 무시할지 결정
-// TODO [★★★ 4순위] 이름이나 주소에 쉼표(,)가 들어가면 파싱이 깨짐
-//                    → 입력 단에서 쉼표 금지 vs 구분자를 다른 문자(예: |)로 변경 중 선택
 public class UserFileRepository {
     private String filename;
 
@@ -27,7 +18,7 @@ public class UserFileRepository {
         this.filename = filename;
     }
 
-    // 전체 회원을 파일에 저장 (덮어쓰기 방식)
+    // 전체 회원을 파일에 저장 (덮어쓰기)
     public void saveAll(List<User> users) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             for (User user : users) {
@@ -39,17 +30,17 @@ public class UserFileRepository {
         }
     }
 
-    // 파일에서 전체 회원을 불러옴 (파일이 없으면 빈 목록 반환)
+    // 파일에서 전체 회원을 불러옴, 파일이 없으면 빈 목록 반환 (첫 실행 대응)
     public List<User> loadAll() {
         List<User> users = new ArrayList<>();
         File file = new File(filename);
         if (!file.exists()) {
-            return users; // 첫 실행 시에는 파일이 없으므로 빈 목록 반환
+            return users;
         }
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                if (line.isEmpty()) continue; // 빈 줄 스킵
+                if (line.isEmpty()) continue;
                 users.add(fromLine(line));
             }
         } catch (IOException e) {
@@ -58,7 +49,7 @@ public class UserFileRepository {
         return users;
     }
 
-    // User 객체 → 한 줄 텍스트 변환
+    // User -> 한 줄 텍스트
     private String toLine(User user) {
         if (user instanceof Customer) {
             Customer c = (Customer) user;
@@ -72,7 +63,7 @@ public class UserFileRepository {
         throw new IllegalArgumentException("알 수 없는 User 타입입니다");
     }
 
-    // 한 줄 텍스트 → User 객체 변환
+    // 한 줄 텍스트 -> User
     private User fromLine(String line) {
         String[] parts = line.split(",");
         if (parts.length != 6) {

@@ -2,11 +2,11 @@
 // TODO 1) 로그인 메서드 login(String id, String password) 시그니처를 여기에 둘지,
 //        별도 AuthService로 분리할지 결정 (분리 권장)
 // TODO 2) 필드 캡슐화 강화: protected → private 로 바꾸고 자식은 getter로 접근하는 안도 고려
-public abstract class User {
-    protected String id;
-    protected String password;
-    protected String name;
-    protected String phone;
+public abstract class User { // 첫 번재 프롬프트에서 멤버 변수를 전부 protected로 제작했지만 캡슐화를 위해 private으로 변경
+    private String id;
+    private String password;
+    private String name;
+    private String phone;
 
     public User() {
     }

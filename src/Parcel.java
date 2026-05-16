@@ -1,8 +1,7 @@
 // [구현 순서 1순위] 다른 클래스에 의존하지 않는 데이터 클래스. 가장 먼저 확정.
-// TODO 1) 필드 검증 로직(setter): weight/distance가 0 이하인 경우 예외 처리 또는 차단
-// TODO 2) toString() 오버라이드: 운송장 출력 시 송신자/수신자 정보 보기 좋게 포매팅
 // TODO 3) (선택) 부피(가로/세로/높이) 필드 추가 — 부피무게 적용한 배송비 계산을 도입할 경우
 public class Parcel {
+    // 기본 정보 멤버 변수
     private String contents;
     private double weight;
     private double distance;
@@ -10,6 +9,10 @@ public class Parcel {
     private String senderAddress;
     private String receiverName;
     private String receiverAddress;
+    // 부피, 무게 적용하여 계산을 위한 멤버 변수
+    private double width;
+    private double length;
+    private double height;
 
     public Parcel() {
     }
@@ -18,8 +21,8 @@ public class Parcel {
                   String senderName, String senderAddress,
                   String receiverName, String receiverAddress) {
         this.contents = contents;
-        this.weight = weight;
-        this.distance = distance;
+        setWeight(weight); // 이 줄과 아랫줄의 경우 예외 처리를 위해 setter 사용
+        setDistance(distance);
         this.senderName = senderName;
         this.senderAddress = senderAddress;
         this.receiverName = receiverName;
@@ -39,6 +42,9 @@ public class Parcel {
     }
 
     public void setWeight(double weight) {
+        if (weight <= 0) { // 무게가 음수일 수 없음 예외 처리
+            throw new IllegalArgumentException("무게는 0보다 작을 수 없습니다. 무게: " + weight);
+        }
         this.weight = weight;
     }
 
@@ -47,6 +53,9 @@ public class Parcel {
     }
 
     public void setDistance(double distance) {
+        if (distance <= 0) { // 거리가 음수일 수 없음 예외 처리
+            throw new IllegalArgumentException("거리는 0보다 작을 수 없습니다. 거리: " + distance);
+        }
         this.distance = distance;
     }
 
@@ -80,5 +89,52 @@ public class Parcel {
 
     public void setReceiverAddress(String receiverAddress) {
         this.receiverAddress = receiverAddress;
+    }
+
+    public double getWidth() { return width; }
+
+    public void setWidth(double width) {
+        if (width <= 0) { // 가로 길이가 음수일 수 없음 예외 처리
+            throw new IllegalArgumentException("가로 길이는 0보다 작을 수 없습니다. 가로: " + width);
+        }
+        this.width = width;
+    }
+
+    public double getLength() { return length; }
+
+    public void setLength(double length) {
+        if (length <= 0) { // 가로 길이가 음수일 수 없음 예외 처리
+            throw new IllegalArgumentException("세로 길이는 0보다 작을 수 없습니다. 세로: " + length);
+        }
+        this.length = length;
+    }
+
+    public double getHeight() { return height; }
+
+    public void setHeight(double height) {
+        if (height <= 0) { // 가로 길이가 음수일 수 없음 예외 처리
+            throw new IllegalArgumentException("높이는 0보다 작을 수 없습니다. 높이: " + height);
+        }
+        this.height = height;
+    }
+
+    public double getVolume() { // 부피 계산
+        return width * length * height;
+    }
+
+    public double getVolumeWeight() {
+        return (width * length * height) / 5000.0;
+    }
+
+    @Override
+    public String toString() {
+        return String.format (
+            "[내용물: %s, 무게: %.1fkg, 거리: %.1fkm]\n" +
+            "   발송인: %s (%s)\n" + // 이름, 주소
+            "   수취인: %s (%s)",
+            contents, weight, distance,
+            senderName, senderAddress,
+            receiverName, receiverAddress
+        );
     }
 }

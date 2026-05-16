@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="123145c1-037f-4d86-9177-fa47df3e6e26" name="변경" comment="첫 번째 프롬프트 (5/16, 1:48pm)">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Admin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Delivery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Delivery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DeliveryStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DeliveryStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ExpressDelivery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ExpressDelivery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/NormalDelivery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NormalDelivery.java" afterDir="false" />
+    <list default="true" id="123145c1-037f-4d86-9177-fa47df3e6e26" name="변경" comment="첫 번째 프롬프트 (5/16, 4:25pm)&#10;TODO 주석 추가">
       <change beforePath="$PROJECT_DIR$/src/Parcel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parcel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/User.java" afterDir="false" />
     </list>
@@ -25,6 +17,11 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "history": [
+    {
+      "assignee": "tkdn7"
+    }
+  ],
   "lastFilter": {
     "assignee": "tkdn7"
   }
@@ -58,7 +55,7 @@
     "project.structure.last.edited": "전역 라이브러리",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "vcs.Git"
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
   <component name="RunManager">
@@ -106,7 +103,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778907460002</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="첫 번째 프롬프트 (5/16, 4:25pm)&#10;TODO 주석 추가">
+      <option name="closed" value="true" />
+      <created>1778916373763</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1778916373763</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -154,6 +159,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="첫 번째 프롬프트 (5/16, 1:48pm)" />
-    <option name="LAST_COMMIT_MESSAGE" value="첫 번째 프롬프트 (5/16, 1:48pm)" />
+    <MESSAGE value="첫 번째 프롬프트 (5/16, 4:25pm)&#10;TODO 주석 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="첫 번째 프롬프트 (5/16, 4:25pm)&#10;TODO 주석 추가" />
   </component>
 </project>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id>마이그레이션Kotlin</id>
+          </State>
+          <State>
+            <id>EditorConfig</id>
+          </State>
+          <State>
+            <id>Gradle</id>
+          </State>
+          <State>
+            <id>Gradle 마이그레이션Kotlin</id>
+          </State>
+          <State>
+            <id>Gradle 선언</id>
+          </State>
+          <State>
+            <id>Groovy</id>
+          </State>
+          <State>
+            <id>JUnit</id>
+          </State>
+          <State>
+            <id>JVM 언어</id>
+          </State>
+          <State>
+            <id>Java</id>
+          </State>
+          <State>
+            <id>Java 11Java 언어 수준 마이그레이션 지원Java</id>
+          </State>
+          <State>
+            <id>Java 21Java 언어 수준 마이그레이션 지원Java</id>
+          </State>
+          <State>
+            <id>Java 23Java 언어 수준 마이그레이션 지원Java</id>
+          </State>
+          <State>
+            <id>Java 5Java 언어 수준 마이그레이션 지원Java</id>
+          </State>
+          <State>
+            <id>Java 8Java 언어 수준 마이그레이션 지원Java</id>
+          </State>
+          <State>
+            <id>Java 언어 수준 마이그레이션 지원Java</id>
+          </State>
+          <State>
+            <id>JavaFX</id>
+          </State>
+          <State>
+            <id>JavadocJava</id>
+          </State>
+          <State>
+            <id>Kotlin</id>
+          </State>
+          <State>
+            <id>Markdown</id>
+          </State>
+          <State>
+            <id>Maven</id>
+          </State>
+          <State>
+            <id>Qodana</id>
+          </State>
+          <State>
+            <id>TestNGJava</id>
+          </State>
+          <State>
+            <id>XML</id>
+          </State>
+          <State>
+            <id>가시성Java</id>
+          </State>
+          <State>
+            <id>국제화Java</id>
+          </State>
+          <State>
+            <id>동시성 어노테이션 문제Java</id>
+          </State>
+          <State>
+            <id>리소스 관리Java</id>
+          </State>
+          <State>
+            <id>리플렉티브 액세스Java</id>
+          </State>
+          <State>
+            <id>메모리Java</id>
+          </State>
+          <State>
+            <id>모범 사례Gradle</id>
+          </State>
+          <State>
+            <id>발생할 수 있는 버그Gradle</id>
+          </State>
+          <State>
+            <id>발생할 수 있는 버그Groovy</id>
+          </State>
+          <State>
+            <id>발생할 수 있는 버그Java</id>
+          </State>
+          <State>
+            <id>발생할 수 있는 버그Kotlin</id>
+          </State>
+          <State>
+            <id>보안Java</id>
+          </State>
+          <State>
+            <id>복제 문제Java</id>
+          </State>
+          <State>
+            <id>불필요한 구문Kotlin</id>
+          </State>
+          <State>
+            <id>사용자 정의</id>
+          </State>
+          <State>
+            <id>상속 문제Java</id>
+          </State>
+          <State>
+            <id>선언 중복성Java</id>
+          </State>
+          <State>
+            <id>성능Java</id>
+          </State>
+          <State>
+            <id>숫자 문제Java</id>
+          </State>
+          <State>
+            <id>숫자 문제Kotlin</id>
+          </State>
+          <State>
+            <id>스레딩 문제Groovy</id>
+          </State>
+          <State>
+            <id>스레딩 문제Java</id>
+          </State>
+          <State>
+            <id>스타일 문제Kotlin</id>
+          </State>
+          <State>
+            <id>스타일Gradle</id>
+          </State>
+          <State>
+            <id>스타일Groovy</id>
+          </State>
+          <State>
+            <id>어노테이션Groovy</id>
+          </State>
+          <State>
+            <id>언어 삽입</id>
+          </State>
+          <State>
+            <id>오류 처리Java</id>
+          </State>
+          <State>
+            <id>유효성 문제Gradle</id>
+          </State>
+          <State>
+            <id>이식성Java</id>
+          </State>
+          <State>
+            <id>일반</id>
+          </State>
+          <State>
+            <id>임베디드성능Java</id>
+          </State>
+          <State>
+            <id>장황하거나 중복 코드 구문Java</id>
+          </State>
+          <State>
+            <id>정규식</id>
+          </State>
+          <State>
+            <id>제어 흐름 이슈Groovy</id>
+          </State>
+          <State>
+            <id>제어 흐름 이슈Java</id>
+          </State>
+          <State>
+            <id>종료Java</id>
+          </State>
+          <State>
+            <id>직렬화 문제Java</id>
+          </State>
+          <State>
+            <id>캡슐화Java</id>
+          </State>
+          <State>
+            <id>코드 성숙도Java</id>
+          </State>
+          <State>
+            <id>코드 스타일 이슈Java</id>
+          </State>
+          <State>
+            <id>코루틴 검사Kotlin</id>
+          </State>
+          <State>
+            <id>프로퍼티 파일</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>사용자 정의</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_25" default="true" project-jdk-name="25" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

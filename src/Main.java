@@ -1,79 +1,351 @@
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Scanner;
 
-// [역할] UserManager / UserFileRepository 동작 확인용 테스트 진입점
+// [역할] 택배 운송 시스템 콘솔 프로그램의 진입점
+// 시작 메뉴 → 로그인 후 사용자 종류에 따라 Customer/Admin 메뉴 분기
 //
-// ===== 사용 방법 =====
-// 1) 첫 실행: 회원 2명이 추가되고 users.txt 파일이 생성됨
-// 2) 두 번째 실행: "이미 존재하는 ID" 메시지가 뜸 → 파일에서 잘 불러왔다는 증거
-// 3) src 폴더의 users.txt 를 열어 형식 확인 (CUSTOMER,c1,1234,...)
-//
-// ===== 작업 가이드 =====
-// TODO [★★☆ 3순위] 키보드 입력(Scanner)으로 ID/비밀번호 받아 로그인하는 콘솔 UI로 확장
-// TODO [★★★ 4순위] 로그인 성공 후 Customer / Admin에 따라 다른 메뉴를 보여주는 분기 추가
+// 회원 정보는 users.txt에 영속 저장(UserFileRepository) 되지만,
+// 배송 정보는 메모리에만 유지되어 프로그램 종료 시 사라짐 (요구사항)
 public class Main {
+    private static final Scanner in = new Scanner(System.in);
+    private static final UserManager userManager = new UserManager();
+    private static final DeliveryManager deliveryManager = new DeliveryManager();
+
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        UserManager manager = new UserManager();
-
-        // 1. 시작 시 회원 목록 출력
-        System.out.println("=== 시작 시 회원 목록 ===");
-        printAllUsers(manager);
-
-        // 2. 회원 추가 (이미 있으면 예외 발생 → 메시지만 출력하고 계속 진행)
-        System.out.println("\n=== 회원 추가 ===");
-        tryAddUser(manager, new Customer("c1", "1234", "홍길동", "010-1111-2222", "서울시 강남구"));
-        tryAddUser(manager, new Admin("a1", "admin", "관리자", "010-9999-9999", "배송팀"));
-
-        // 3. 추가 후 회원 목록
-        System.out.println("\n=== 추가 후 회원 목록 ===");
-        printAllUsers(manager);
-
-        // 4. 로그인 테스트
-        System.out.println("\n=== 로그인 테스트 ===");
-        tryLogin(manager, "c1", "1234");       // 성공 케이스
-        tryLogin(manager, "c1", "wrongpw");    // 실패: 비밀번호 불일치
-        tryLogin(manager, "nobody", "1234");   // 실패: 없는 ID
-    }
-
-    // 전체 회원 출력 (회원이 없으면 안내 문구)
-    private static void printAllUsers(UserManager manager) {
-        if (manager.getAllUsers().isEmpty()) {
-            System.out.println("(등록된 회원 없음)");
-            return;
-        }
-        for (User u : manager.getAllUsers()) {
-            String type = (u instanceof Admin) ? "관리자" : "고객";
-            System.out.println("- [" + type + "] " + u.getId() + " / " + u.getName());
+        while (true) {
+            showMainMenu();
+            String choice = in.nextLine().trim();
+            switch (choice) {
+                case "1":
+                    signUp();
+                    break;
+                case "2":
+                    login();
+                    break;
+                case "3":
+                    showAllUsers();
+                    break;
+                case "0":
+                    System.out.println("프로그램을 종료합니다.");
+                    return;
+                default:
+                    System.out.println("잘못된 선택입니다. 0~3 사이로 입력해주세요.");
+            }
         }
     }
 
-    // 회원 추가 시도 (중복이면 예외 잡아서 메시지만 출력)
-    private static void tryAddUser(UserManager manager, User user) {
+    // ================= 시작 메뉴 =================
+
+    private static void showMainMenu() {
+        System.out.println("\n========================");
+        System.out.println("   택배 운송 시스템");
+        System.out.println("========================");
+        System.out.println("1. 회원가입");
+        System.out.println("2. 로그인");
+        System.out.println("3. 전체 회원 목록 조회");
+        System.out.println("0. 종료");
+        System.out.print("선택: ");
+    }
+
+    // ================= 회원가입 =================
+
+    private static void signUp() {
+        System.out.println("\n=== 회원가입 ===");
+        System.out.println("1. 고객 (Customer)");
+        System.out.println("2. 관리자 (Admin)");
+        System.out.print("회원 종류 선택: ");
+        String type = in.nextLine().trim();
+
+        System.out.print("ID: ");
+        String id = in.nextLine().trim();
+        System.out.print("비밀번호 (6자 이상): ");
+        String pw = in.nextLine().trim();
+        System.out.print("이름: ");
+        String name = in.nextLine().trim();
+        System.out.print("전화번호: ");
+        String phone = in.nextLine().trim();
+
         try {
-            manager.addUser(user);
-            System.out.println("추가 성공: " + user.getId());
+            if (type.equals("1")) {
+                System.out.print("주소: ");
+                String address = in.nextLine().trim();
+                userManager.addUser(new Customer(id, pw, name, phone, address));
+                System.out.println("회원가입 성공! (고객: " + id + ")");
+            } else if (type.equals("2")) {
+                System.out.print("소속 부서: ");
+                String department = in.nextLine().trim();
+                userManager.addUser(new Admin(id, pw, name, phone, department));
+                System.out.println("회원가입 성공! (관리자: " + id + ")");
+            } else {
+                System.out.println("잘못된 회원 종류입니다.");
+            }
         } catch (IllegalArgumentException e) {
-            System.out.println("추가 실패: " + e.getMessage());
+            System.out.println("회원가입 실패: " + e.getMessage());
         }
     }
 
-    // 로그인 시도 결과 출력
-    private static void tryLogin(UserManager manager, String id, String password) {
-        LoginResult result = manager.login(id, password);
+    // ================= 로그인 =================
+
+    private static void login() {
+        System.out.println("\n=== 로그인 ===");
+        System.out.print("ID: ");
+        String id = in.nextLine().trim();
+        System.out.print("비밀번호: ");
+        String pw = in.nextLine().trim();
+
+        LoginResult result = userManager.login(id, pw);
         switch (result) {
             case SUCCESS:
-                // [검토 TODO] 메뉴 분기로 확장하려면 여기서 로그인 한 User 객체가 필요함.
-                //   현재는 id 문자열밖에 없어서 Customer/Admin 판별 불가.
-                //   UserManager에 사용자 조회 수단(public getUser 등)을 마련해야 함.
-                System.out.println("로그인 성공 -> id: " + id);
+                User user = userManager.getUserById(id);
+                System.out.println("로그인 성공: " + user.getName() + "님 환영합니다.");
+                // instanceof로 분기해서 서로 다른 메뉴를 띄움
+                if (user instanceof Admin) {
+                    adminMenu((Admin) user);
+                } else if (user instanceof Customer) {
+                    customerMenu((Customer) user);
+                }
                 break;
             case ID_NOT_FOUND:
-                System.out.println("로그인 실패 -> 존재하지 않는 ID: " + id);
+                System.out.println("로그인 실패: 존재하지 않는 ID 입니다.");
                 break;
             case WRONG_PASSWORD:
-                System.out.println("로그인 실패 -> 비밀번호가 틀렸습니다.");
+                System.out.println("로그인 실패: 비밀번호가 일치하지 않습니다.");
                 break;
-            // [검토 TODO] LoginResult에 라벨이 추가될 때 누락 방지용 default 케이스를 둘지 결정
         }
+    }
+
+    // ================= 회원 목록 =================
+
+    private static void showAllUsers() {
+        List<User> users = userManager.getAllUsers();
+        if (users.isEmpty()) {
+            System.out.println("등록된 회원이 없습니다.");
+            return;
+        }
+        System.out.println("\n=== 전체 회원 목록 ===");
+        for (User u : users) {
+            String type = (u instanceof Admin) ? "관리자" : "고객";
+            System.out.println("- [" + type + "] " + u.getId() + " / " + u.getName() + " / " + u.getPhone());
+        }
+    }
+
+    // ================= 고객 메뉴 =================
+
+    private static void customerMenu(Customer customer) {
+        while (true) {
+            System.out.println("\n--- 고객 메뉴 (" + customer.getName() + ") ---");
+            System.out.println("1. 택배 접수");
+            System.out.println("2. 운송장 번호로 배송 조회");
+            System.out.println("3. 배송 상태 확인");
+            System.out.println("4. 배송비 계산 결과 보기");
+            System.out.println("0. 로그아웃");
+            System.out.print("선택: ");
+            String choice = in.nextLine().trim();
+            switch (choice) {
+                case "1":
+                    createDelivery(customer);
+                    break;
+                case "2":
+                    customerViewDelivery(customer);
+                    break;
+                case "3":
+                    customerCheckStatus(customer);
+                    break;
+                case "4":
+                    customerShowFee(customer);
+                    break;
+                case "0":
+                    System.out.println("로그아웃 되었습니다.");
+                    return;
+                default:
+                    System.out.println("잘못된 선택입니다.");
+            }
+        }
+    }
+
+    private static void createDelivery(Customer customer) {
+        System.out.println("\n=== 택배 접수 ===");
+        try {
+            System.out.print("운송장 번호: ");
+            String trackingNumber = in.nextLine().trim();
+            System.out.print("물품명: ");
+            String contents = in.nextLine().trim();
+            System.out.print("무게(kg): ");
+            double weight = Double.parseDouble(in.nextLine().trim());
+            System.out.print("거리(km): ");
+            double distance = Double.parseDouble(in.nextLine().trim());
+            System.out.print("송신자 이름: ");
+            String senderName = in.nextLine().trim();
+            System.out.print("송신자 주소: ");
+            String senderAddress = in.nextLine().trim();
+            System.out.print("수신자 이름: ");
+            String receiverName = in.nextLine().trim();
+            System.out.print("수신자 주소: ");
+            String receiverAddress = in.nextLine().trim();
+            System.out.print("가로(cm): ");
+            double width = Double.parseDouble(in.nextLine().trim());
+            System.out.print("세로(cm): ");
+            double length = Double.parseDouble(in.nextLine().trim());
+            System.out.print("높이(cm): ");
+            double height = Double.parseDouble(in.nextLine().trim());
+            System.out.println("배송 종류 선택 [1: 일반배송 / 2: 긴급배송]: ");
+            String deliveryType = in.nextLine().trim();
+
+            Parcel parcel = new Parcel(contents, weight, distance,
+                    senderName, senderAddress, receiverName, receiverAddress);
+            parcel.setWidth(width);
+            parcel.setLength(length);
+            parcel.setHeight(height);
+
+            Delivery delivery;
+            if (deliveryType.equals("2")) {
+                delivery = new ExpressDelivery(trackingNumber, customer, parcel,
+                        DeliveryStatus.READY, LocalDateTime.now());
+            } else if (deliveryType.equals("1")) {
+                delivery = new NormalDelivery(trackingNumber, customer, parcel,
+                        DeliveryStatus.READY, LocalDateTime.now());
+            } else {
+                System.out.println("잘못된 배송 종류입니다. (1 또는 2)");
+                return;
+            }
+
+            deliveryManager.addDelivery(delivery);
+            System.out.println("접수 완료! 운송장 번호: " + delivery.getTrackingNumber());
+            System.out.println("배송비: " + delivery.calculateFee() + "원");
+        } catch (NumberFormatException e) {
+            System.out.println("숫자 입력이 잘못되었습니다.");
+        } catch (IllegalArgumentException e) {
+            System.out.println("접수 실패: " + e.getMessage());
+        }
+    }
+
+    private static void customerViewDelivery(Customer customer) {
+        System.out.print("운송장 번호: ");
+        String trackingNumber = in.nextLine().trim();
+        Delivery delivery = customer.viewWaybill(deliveryManager, trackingNumber);
+        if (delivery == null) {
+            System.out.println("해당 운송장 번호를 찾을 수 없습니다.");
+            return;
+        }
+        printDelivery(delivery);
+    }
+
+    private static void customerCheckStatus(Customer customer) {
+        System.out.print("운송장 번호: ");
+        String trackingNumber = in.nextLine().trim();
+        DeliveryStatus status = customer.checkStatus(deliveryManager, trackingNumber);
+        if (status == null) {
+            System.out.println("해당 운송장 번호를 찾을 수 없습니다.");
+            return;
+        }
+        System.out.println("현재 배송 상태: " + status.getLabel());
+    }
+
+    private static void customerShowFee(Customer customer) {
+        System.out.print("운송장 번호: ");
+        String trackingNumber = in.nextLine().trim();
+        Delivery delivery = customer.viewWaybill(deliveryManager, trackingNumber);
+        if (delivery == null) {
+            System.out.println("해당 운송장 번호를 찾을 수 없습니다.");
+            return;
+        }
+        String type = (delivery instanceof ExpressDelivery) ? "긴급배송" : "일반배송";
+        System.out.println(type + " 배송비: " + delivery.calculateFee() + "원");
+    }
+
+    // ================= 관리자 메뉴 =================
+
+    private static void adminMenu(Admin admin) {
+        while (true) {
+            System.out.println("\n--- 관리자 메뉴 (" + admin.getName() + ") ---");
+            System.out.println("1. 전체 배송 조회");
+            System.out.println("2. 배송 상태 변경");
+            System.out.println("3. 운송장 삭제");
+            System.out.println("4. 전체 회원 조회");
+            System.out.println("0. 로그아웃");
+            System.out.print("선택: ");
+            String choice = in.nextLine().trim();
+            switch (choice) {
+                case "1":
+                    adminShowAllDeliveries(admin);
+                    break;
+                case "2":
+                    adminChangeStatus(admin);
+                    break;
+                case "3":
+                    adminDeleteWaybill(admin);
+                    break;
+                case "4":
+                    showAllUsers();
+                    break;
+                case "0":
+                    System.out.println("로그아웃 되었습니다.");
+                    return;
+                default:
+                    System.out.println("잘못된 선택입니다.");
+            }
+        }
+    }
+
+    private static void adminShowAllDeliveries(Admin admin) {
+        List<Delivery> deliveries = admin.viewAllDeliveries(deliveryManager);
+        if (deliveries.isEmpty()) {
+            System.out.println("등록된 배송이 없습니다.");
+            return;
+        }
+        System.out.println("\n=== 전체 배송 목록 ===");
+        for (Delivery d : deliveries) {
+            printDelivery(d);
+        }
+    }
+
+    private static void adminChangeStatus(Admin admin) {
+        System.out.print("운송장 번호: ");
+        String trackingNumber = in.nextLine().trim();
+        System.out.println("변경할 상태 선택:");
+        DeliveryStatus[] statuses = DeliveryStatus.values();
+        for (int i = 0; i < statuses.length; i++) {
+            System.out.println((i + 1) + ". " + statuses[i].getLabel());
+        }
+        System.out.print("선택: ");
+        try {
+            int idx = Integer.parseInt(in.nextLine().trim()) - 1;
+            if (idx < 0 || idx >= statuses.length) {
+                System.out.println("잘못된 번호입니다.");
+                return;
+            }
+            admin.changeStatus(deliveryManager, trackingNumber, statuses[idx]);
+            System.out.println("상태 변경 완료: " + statuses[idx].getLabel());
+        } catch (NumberFormatException e) {
+            System.out.println("숫자를 입력해주세요.");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void adminDeleteWaybill(Admin admin) {
+        System.out.print("삭제할 운송장 번호: ");
+        String trackingNumber = in.nextLine().trim();
+        boolean removed = admin.deleteWaybill(deliveryManager, trackingNumber);
+        if (removed) {
+            System.out.println("운송장 삭제 완료: " + trackingNumber);
+        } else {
+            System.out.println("해당 운송장 번호를 찾을 수 없습니다.");
+        }
+    }
+
+    // ================= 공용 출력 헬퍼 =================
+
+    private static void printDelivery(Delivery delivery) {
+        String type = (delivery instanceof ExpressDelivery) ? "긴급" : "일반";
+        System.out.println("------------------------------");
+        System.out.println("운송장 번호: " + delivery.getTrackingNumber());
+        System.out.println("배송 종류  : " + type);
+        System.out.println("배송 상태  : " + delivery.getStatus().getLabel());
+        System.out.println("접수 일시  : " + delivery.getCreatedAt());
+        System.out.println("발송 고객  : " + delivery.getSender().getName() + " (" + delivery.getSender().getId() + ")");
+        System.out.println("택배 정보  : " + delivery.getParcel());
+        System.out.println("배송비    : " + delivery.calculateFee() + "원");
     }
 }

@@ -35,19 +35,13 @@ public class UserManager {
         fileRepository.saveAll(users);
     }
 
-    // 전체 회원 목록 조회
+    // 전체 회원 목록 조회 (내부 리스트가 외부에서 수정되지 않도록 복사본 반환)
     public List<User> getAllUsers() {
-        return users;
+        return new ArrayList<>(users);
     }
 
     // 로그인 결과를 LoginResult로 반환 (SUCCESS / ID_NOT_FOUND / WRONG_PASSWORD)
-    // [검토 TODO] 성공 시 호출자가 어떤 사용자가 로그인했는지 알 수 없음.
-    //   - 메뉴 분기(instanceof Customer/Admin)를 하려면 User 객체가 필요한데
-    //     login은 라벨만 돌려주고, findById는 private이라 외부에서 못 부름.
-    //   - 해결안 A: findById를 public으로 변경해 호출자가 따로 가져오기
-    //   - 해결안 B: getUser(String id) public 게터 별도 추가
-    //   - 해결안 C: LoginResult 대신 결과 객체(LoginResponse)에 User까지 담아 반환
-
+    // 성공 후 실제 User 객체가 필요하면 getUserById(id)로 따로 조회한다.
     public LoginResult login(String id, String password) {
         User user = findById(id);
         if (user == null) {
@@ -67,8 +61,7 @@ public class UserManager {
     }
 
     // 내부 헬퍼: id로 회원 찾기 (없으면 null)
-    // [검토 TODO] login이 LoginResult만 돌려주는 구조라면, 호출자가 후속 작업
-    //   (이름 출력/메뉴 분기 등)을 하려면 이 메서드가 public이어야 할 가능성 큼.
+    // 외부에서는 public getUserById()를 통해 우회 접근하도록 private 유지
     private User findById(String id) {
         for (User u : users) {
             if (u.getId().equals(id)) {

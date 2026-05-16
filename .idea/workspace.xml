@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="123145c1-037f-4d86-9177-fa47df3e6e26" name="변경" comment="첫 번째 프롬프트 (5/16, 4:25pm)&#10;TODO 주석 추가">
-      <change beforePath="$PROJECT_DIR$/src/Parcel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parcel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/User.java" afterDir="false" />
-    </list>
+    <list default="true" id="123145c1-037f-4d86-9177-fa47df3e6e26" name="변경" comment="본인 수정본 (5/16, 8:06pm)" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -111,7 +108,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778916373763</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="본인 수정본 (5/16, 8:06pm)">
+      <option name="closed" value="true" />
+      <created>1778929584298</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1778929584298</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -160,6 +165,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="첫 번째 프롬프트 (5/16, 1:48pm)" />
     <MESSAGE value="첫 번째 프롬프트 (5/16, 4:25pm)&#10;TODO 주석 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="첫 번째 프롬프트 (5/16, 4:25pm)&#10;TODO 주석 추가" />
+    <MESSAGE value="본인 수정본 (5/16, 8:06pm)" />
+    <option name="LAST_COMMIT_MESSAGE" value="본인 수정본 (5/16, 8:06pm)" />
   </component>
 </project>

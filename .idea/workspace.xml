@@ -5,10 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="123145c1-037f-4d86-9177-fa47df3e6e26" name="변경" comment="첫 번째 프롬프트 (5/16, 1:48pm)">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Admin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Delivery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Delivery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DeliveryStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DeliveryStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ExpressDelivery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ExpressDelivery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/NormalDelivery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NormalDelivery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parcel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parcel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,12 +24,23 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "assignee": "tkdn7"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/tkdn7/java_project.git&quot;,
+    &quot;accountId&quot;: &quot;2766e6b6-2cc2-4a6c-864f-eedb1d275830&quot;
+  }
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="3Dn9CWdMuYaAk0awzH5q7vJRN4z" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -34,12 +51,29 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/sangwoo/Desktop/Code/Java/과제",
-    "settings.editor.selected.configurable": "fileTemplates"
+    "project.structure.last.edited": "전역 라이브러리",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "vcs.Git"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="과제" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="과제" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="디폴트 작업">
       <changelist id="123145c1-037f-4d86-9177-fa47df3e6e26" name="변경" comment="" />
@@ -64,7 +98,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778906978028</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="첫 번째 프롬프트 (5/16, 1:48pm)">
+      <option name="closed" value="true" />
+      <created>1778907460002</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1778907460002</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

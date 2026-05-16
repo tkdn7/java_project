@@ -2,6 +2,8 @@ import java.time.LocalDateTime;
 
 public class NormalDelivery extends Delivery {
     private static final int BASE_FEE = 3000;
+    private static final int WEIGHT_RATE = 500;     // kg당 추가 요금
+    private static final int DISTANCE_RATE = 100;   // km당 추가 요금
 
     public NormalDelivery() {
         super();
@@ -14,11 +16,8 @@ public class NormalDelivery extends Delivery {
 
     @Override
     public int calculateFee() {
-        // TODO [4순위] 일반배송 요금 공식 구현
-        //   예: BASE_FEE + (parcel.getWeight() * 무게단가) + (parcel.getDistance() * 거리단가)
-        //   - 무게단가/거리단가는 상수로 추가
-        //   - 결과를 int로 반환할지 BigDecimal/double로 바꿀지 결정 (돈 계산은 정밀도 주의)
-        return 0;
+        // 부모의 공통 계산식 그대로 사용 (일반배송은 할증 없음)
+        return calculateBaseFee(BASE_FEE, WEIGHT_RATE, DISTANCE_RATE);
     }
 
     public int getBaseFee() {

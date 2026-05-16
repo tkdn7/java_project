@@ -2,6 +2,8 @@ import java.time.LocalDateTime;
 
 public class ExpressDelivery extends Delivery {
     private static final int BASE_FEE = 5000;
+    private static final int WEIGHT_RATE = 700;      // 긴급은 단가 자체가 일반보다 높음
+    private static final int DISTANCE_RATE = 150;
     private static final double EXPRESS_MULTIPLIER = 1.5;
 
     public ExpressDelivery() {
@@ -15,11 +17,10 @@ public class ExpressDelivery extends Delivery {
 
     @Override
     public int calculateFee() {
-        // TODO [4순위] 긴급배송 요금 공식 구현
-        //   예: (BASE_FEE + 무게요금 + 거리요금) * EXPRESS_MULTIPLIER
-        //   - NormalDelivery와 중복 계산이 생기면 부모 Delivery 쪽에 protected 메서드로 빼는 것을 고려
-        //   - 야간/주말 할증 같은 추가 옵션을 둘지 결정
-        return 0;
+        // (기본료 + 무게요금 + 거리요금) 전체에 긴급 배수 적용
+        // 캐스팅 순서 주의: 합을 먼저 구하고 마지막에 곱해야 의도대로 1.5배가 됨
+        int base = calculateBaseFee(BASE_FEE, WEIGHT_RATE, DISTANCE_RATE);
+        return (int) Math.round(base * EXPRESS_MULTIPLIER);
     }
 
     public int getBaseFee() {

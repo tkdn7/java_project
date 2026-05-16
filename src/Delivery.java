@@ -30,6 +30,15 @@ public abstract class Delivery {
     // 배송 종류별 배송비 계산 (하위 클래스에서 구현)
     public abstract int calculateFee();
 
+    // 공통 요금 계산식: 기본료 + 무게요금 + 거리요금
+    // 실측 무게와 부피무게 중 큰 값으로 과금 (택배사 표준 방식)
+    protected int calculateBaseFee(int baseFee, int weightRate, int distanceRate) {
+        double chargeWeight = Math.max(parcel.getWeight(), parcel.getVolumeWeight());
+        return baseFee
+                + (int) (chargeWeight * weightRate)
+                + (int) (parcel.getDistance() * distanceRate);
+    }
+
     public String getTrackingNumber() {
         return trackingNumber;
     }
